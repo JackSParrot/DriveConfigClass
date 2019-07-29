@@ -1,0 +1,20 @@
+{
+    "name": "JackSParrotJSON.Editor.Tests",
+    "references": [
+        "JackSParrotJSON.Editor",
+        "JackSParrotJSON.Runtime"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

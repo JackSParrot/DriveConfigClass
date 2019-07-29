@@ -1,0 +1,13 @@
+{
+  "name": "JackSParrotJSON.Runtime",
+  "references": [
+    "JackSParrotJSON"
+  ],
+  "optionalUnityReferences": [
+    
+  ],
+  "includePlatforms": [
+    
+  ],
+  "excludePlatforms": []
+}
