@@ -1,0 +1,38 @@
+Google drive project here:
+
+https://drive.google.com/open?id=1rMd2H4KgeM_hFeBb866Io0GrbS_byOeu
+
+The default project pints to it, so you can see it working.
+
+To make your own:
+	* Make a private copy of the folder.
+		* Select all files.
+		* Right click on them.
+		* Click on "Add to My Drive"
+		* They will be added to your drive with a "Copy of " prefix.
+		* (Optional) Rename the files removing the copy of by right clicking the file -> rename.
+		* Create a folder where you want to have the project.
+		* Move the files to the project.
+
+
+	* Open the ConfigData spreadsheet.
+	* Go to Tools -> Script editor.
+	* In the script editor replace the value of the "spreadsheetId" and "configId" values with the id of your spreadsheet and config file(nte 1).
+	* Open the ConfigDataBackend file.
+	* Replace the value of the "configId" values with the id of your config file.
+	* In the ConfigDataBackend, go to Publish -> "Deploy as web app" 
+	* Under the "Execute the app as" choose: "Me"
+	* Under the "Who has access to the app" choose : "Anyone, even anonymous"
+	* Click the Update button. (note 2)
+	* Grant the app the permissions to "See and download all your google Drive files".
+	* Copy the url given in the popup, that's the url to use in the game.
+
+
+Note 1:
+To get the id of your spreadsheet open it, in the url bar you will see something like this: "https://docs.google.com/spreadsheets/d/1rAK9aGFB4bweIq0zOimFAKklKFOfUDWiFBCOmmYTA0M/edit#gid=0" The id of the spreadsheet is the long string between the /d/ and the /edit/, in this case would be: 1rAK9aGFB4bweIq0zOimFAKklKFOfUDWiFBCOmmYTA0M
+
+For the config file, you have to right click on it, click on the get shareable link, and when created the link paste it in the navigation bar, you will see a similar url: "https://drive.google.com/file/d/1FOlsC3wOC8OV255llNbqtFVx1-xvVHAI/view" the id is between the /d/ and the /view/, in this case would be: 1FOlsC3wOC8OV255llNbqtFVx1-xvVHAI After copying the id you can disable the shareable link by right-clicking the file -> get shareable link and clicking in the activator toggle at the top-right.
+
+
+Note 2:
+You could see a window saying "This app isn't verified", in this case click on the "Advanced" link at the bottom, it will show another link below saying "Go to ConfigDataBackend (unsafe)", Click on it to go to the select account and review permissions.
