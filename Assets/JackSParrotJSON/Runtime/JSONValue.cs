@@ -21,27 +21,29 @@
             return _valueType;
         }
 
-        public virtual void SetString(string value)
+        public virtual JSONValue SetInt(int value)
         {
+            return new JSONInt(value);
         }
 
-        public virtual void SetInt(int value)
+        public virtual JSONValue SetLong(long value)
         {
+            return new JSONLong(value);
         }
 
-        public virtual void SetBool(bool value)
+        public virtual JSONValue SetFloat(float value)
         {
-            SetInt(value ? 1 : 0);
+            return new JSONFloat(value);
         }
 
-        public virtual void SetLong(long value)
+        public virtual JSONValue SetBool(bool value)
         {
-            SetInt((int)value);
+            return new JSONBool(value);
         }
 
-        public virtual void SetFloat(float value)
+        public virtual JSONValue SetString(string value)
         {
-            SetInt((int)value);
+            return new JSONString(value);
         }
 
         public virtual int ToInt()
@@ -72,36 +74,6 @@
         public override JSONValue ToValue()
         {
             return Clone().AsValue();
-        }
-
-        public override bool Equals(JSON other)
-        {
-            if(other.GetJSONType() != JSONType.Value)
-            {
-                return false;
-            }
-
-            var otherValue = other.AsValue();
-            if(otherValue._valueType != _valueType)
-            {
-                return false;
-            }
-            switch(_valueType)
-            {
-            case JSONValueType.Bool:
-                return otherValue.ToBool() == ToBool();
-            case JSONValueType.String:
-                return otherValue.ToString().Equals(ToString(), System.StringComparison.InvariantCultureIgnoreCase);
-            case JSONValueType.Int:
-                return otherValue.ToInt() == ToInt();
-            case JSONValueType.Long:
-                return otherValue.ToLong() == ToLong();
-            case JSONValueType.Float:
-                return System.Math.Abs(otherValue.ToFloat() - ToFloat()) < float.Epsilon;
-            case JSONValueType.Empty:
-                return true;
-            }
-            return base.Equals(other);
         }
     }
 }

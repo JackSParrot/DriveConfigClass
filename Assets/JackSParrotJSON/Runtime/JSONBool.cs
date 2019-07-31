@@ -5,35 +5,39 @@
     {
         bool _value;
 
-        public JSONBool(bool value) : base(JSONValueType.Bool)
+        public static implicit operator bool(JSONBool data) => data.ToBool();
+        public static implicit operator JSONBool(bool data) => new JSONBool(data);
+
+        public JSONBool(bool value = false) : base(JSONValueType.Bool)
+        {
+            SetBool(value);
+        }
+
+        public override JSONValue SetInt(int value)
+        {
+           return  SetBool(value != 0);
+        }
+
+        public override JSONValue SetLong(long value)
+        {
+            return SetBool(value != 0);
+        }
+
+        public override JSONValue SetFloat(float value)
+        {
+            return SetBool(System.Math.Abs(value) > float.Epsilon);
+        }
+
+        public override JSONValue SetBool(bool value)
         {
             _value = value;
+            return this;
         }
 
-        public override void SetString(string value)
+        public override JSONValue SetString(string value)
         {
-            _value = value.Equals(kTrue, System.StringComparison.InvariantCultureIgnoreCase) ||
-                value.Equals(kOne, System.StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        public override void SetInt(int value)
-        {
-            SetBool(value != 0);
-        }
-
-        public override void SetBool(bool value)
-        {
-            _value = value;
-        }
-
-        public override void SetLong(long value)
-        {
-            SetBool(value != 0);
-        }
-
-        public override void SetFloat(float value)
-        {
-            SetBool(System.Math.Abs(value) > float.Epsilon);
+            return SetBool(value.Equals(kTrue, System.StringComparison.InvariantCultureIgnoreCase) ||
+                value.Equals(kOne, System.StringComparison.InvariantCultureIgnoreCase));
         }
 
         public override string ToString()
@@ -69,6 +73,11 @@
         public override JSON Clone()
         {
             return new JSONBool(_value);
+        }
+
+        public override bool Equals(JSON other)
+        {
+            return base.Equals(other) || (other.GetJSONType() == JSONType.Value && other.AsValue().GetValueType() == JSONValueType.Bool && (other.AsValue() as JSONBool)._value == _value);
         }
     }
 }

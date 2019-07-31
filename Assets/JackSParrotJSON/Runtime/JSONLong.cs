@@ -5,37 +5,43 @@
     {
         long _value;
 
-        public JSONLong(long value) : base(JSONValueType.Long)
+        public static implicit operator long(JSONLong data) => data.ToLong();
+        public static implicit operator JSONLong(long data) => new JSONLong(data);
+
+        public JSONLong(long value = 0L) : base(JSONValueType.Long)
         {
-            _value = value;
+            SetLong(value);
         }
 
-        public override void SetString(string value)
+        public override JSONValue SetInt(int value)
         {
-            if(!long.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out _value))
+            return SetLong((long)value);
+        }
+
+        public override JSONValue SetLong(long value)
+        {
+            _value = value;
+            return this;
+        }
+
+        public override JSONValue SetFloat(float value)
+        {
+            return SetLong((long)value);
+        }
+
+        public override JSONValue SetBool(bool value)
+        {
+            return SetInt(value ? 1 : 0);
+        }
+
+        public override JSONValue SetString(string value)
+        {
+            long outVal;
+            if (!long.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out outVal))
             {
-                _value = 0;
+                outVal = 0;
             }
-        }
-
-        public override void SetInt(int value)
-        {
-            SetLong((long)value);
-        }
-
-        public override void SetBool(bool value)
-        {
-            SetInt(value ? 1 : 0);
-        }
-
-        public override void SetLong(long value)
-        {
-            _value = value;
-        }
-
-        public override void SetFloat(float value)
-        {
-            SetLong((long)value);
+            return SetLong(outVal);
         }
 
         public override string ToString()
@@ -71,6 +77,11 @@
         public override JSON Clone()
         {
             return new JSONLong(_value);
+        }
+
+        public override bool Equals(JSON other)
+        {
+            return base.Equals(other) || (other.GetJSONType() == JSONType.Value && other.AsValue().GetValueType() == JSONValueType.Long && (other.AsValue() as JSONLong)._value == _value);
         }
     }
 }

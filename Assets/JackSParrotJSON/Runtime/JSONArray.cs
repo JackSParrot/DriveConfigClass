@@ -1,38 +1,241 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace JackSParrot.JSON
 {
     [System.Serializable]
-    public class JSONArray : JSON
+    public class JSONArray : JSON, IEnumerable<JSON>
     {
         List<JSON> _values;
-
-        public int Count
-        {
-            get
-            {
-                return _values.Count;
-            }
-        }
 
         public JSONArray() : base(JSONType.Array)
         {
             _values = new List<JSON>();
         }
 
-        public List<JSON>.Enumerator GetEnumerator()
+        public JSONArray(List<JSON> items) : base(JSONType.Array)
         {
-            return _values.GetEnumerator();
+            _values = new List<JSON>(items);
+        }
+
+        public JSONArray(List<int> items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(List<long> items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(List<float> items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(List<bool> items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(List<string> items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(JSON[] items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>(items);
+        }
+
+        public JSONArray(int[] items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(long[] items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(float[] items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(bool[] items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public JSONArray(string[] items) : base(JSONType.Array)
+        {
+            _values = new List<JSON>();
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public int[] ToIntArray()
+        {
+            var retVal = new int[_values.Count];
+            for (int i = 0; i < _values.Count; ++i)
+            {
+                retVal[i] = _values[i].AsValue().ToInt();
+            }
+            return retVal;
+        }
+
+        public long[] ToLongArray()
+        {
+            var retVal = new long[_values.Count];
+            for (int i = 0; i < _values.Count; ++i)
+            {
+                retVal[i] = _values[i].AsValue().ToLong();
+            }
+            return retVal;
+        }
+
+        public float[] ToFloatArray()
+        {
+            var retVal = new float[_values.Count];
+            for (int i = 0; i < _values.Count; ++i)
+            {
+                retVal[i] = _values[i].AsValue().ToFloat();
+            }
+            return retVal;
+        }
+
+        public bool[] ToBoolArray()
+        {
+            var retVal = new bool[_values.Count];
+            for (int i = 0; i < _values.Count; ++i)
+            {
+                retVal[i] = _values[i].AsValue().ToBool();
+            }
+            return retVal;
+        }
+
+        public string[] ToStringArray()
+        {
+            var retVal = new string[_values.Count];
+            for (int i = 0; i < _values.Count; ++i)
+            {
+                retVal[i] = _values[i].AsValue().ToString();
+            }
+            return retVal;
+        }
+
+        public List<int> ToIntList()
+        {
+            var retVal = new List<int>();
+            foreach (var value in _values)
+            {
+                retVal.Add(value.AsValue().ToInt());
+            }
+            return retVal;
+        }
+
+        public List<long> ToLongList()
+        {
+            var retVal = new List<long>();
+            foreach (var value in _values)
+            {
+                retVal.Add(value.AsValue().ToLong());
+            }
+            return retVal;
+        }
+
+        public List<float> ToFloatList()
+        {
+            var retVal = new List<float>();
+            foreach (var value in _values)
+            {
+                retVal.Add(value.AsValue().ToFloat());
+            }
+            return retVal;
+        }
+
+        public List<bool> ToBoolList()
+        {
+            var retVal = new List<bool>();
+            foreach (var value in _values)
+            {
+                retVal.Add(value.AsValue().ToBool());
+            }
+            return retVal;
+        }
+
+        public List<string> ToStringList()
+        {
+            var retVal = new List<string>();
+            foreach (var value in _values)
+            {
+                retVal.Add(value.AsValue().ToString());
+            }
+            return retVal;
+        }
+
+        public int GetCount()
+        {
+            return _values.Count;
+        }
+
+        public IEnumerator<JSON> GetEnumerator() => _values.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetAt(int index, JSON value)
+        {
+            JSON item = value != null ? value : new JSONEmpty();
+            SetChild(null, _values[index]);
+            SetChild(this, item);
+            _values[index] = item;
         }
 
         public JSON GetAt(int index)
         {
             return _values[index];
-        }
-
-        public void SetAt(int index, JSON value)
-        {
-            _values[index] = value;
         }
 
         public void Add(JSON value)

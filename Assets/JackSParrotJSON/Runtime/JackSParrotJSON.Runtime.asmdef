@@ -1,13 +1,13 @@
 {
-  "name": "JackSParrotJSON.Runtime",
-  "references": [
-    "JackSParrotJSON"
-  ],
-  "optionalUnityReferences": [
-    
-  ],
-  "includePlatforms": [
-    
-  ],
-  "excludePlatforms": []
+    "name": "JackSParrotJSON.Runtime",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
 }

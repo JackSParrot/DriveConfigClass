@@ -1,7 +1,6 @@
 {
     "name": "JackSParrotJSON.Editor.Tests",
     "references": [
-        "JackSParrotJSON.Editor",
         "JackSParrotJSON.Runtime"
     ],
     "optionalUnityReferences": [

@@ -5,34 +5,38 @@
     {
         string _value;
 
-        public JSONString(string value) : base(JSONValueType.String)
+        public static implicit operator string(JSONString data) => data.ToString();
+        public static implicit operator JSONString(string data) => new JSONString(data);
+
+        public JSONString(string value = "") : base(JSONValueType.String)
+        {
+            SetString(value);
+        }
+
+        public override JSONValue SetInt(int value)
+        {
+            return SetString(value.ToString());
+        }
+
+        public override JSONValue SetLong(long value)
+        {
+            return SetString(value.ToString());
+        }
+
+        public override JSONValue SetFloat(float value)
+        {
+            return SetString(value.ToString());
+        }
+
+        public override JSONValue SetBool(bool value)
+        {
+            return SetString(value ? kTrue : kFalse);
+        }
+
+        public override JSONValue SetString(string value)
         {
             _value = value;
-        }
-
-        public override void SetString(string value)
-        {
-            _value = value;
-        }
-
-        public override void SetInt(int value)
-        {
-            SetString(value.ToString());
-        }
-
-        public override void SetBool(bool value)
-        {
-            SetString(value ? kTrue : kFalse);
-        }
-
-        public override void SetLong(long value)
-        {
-            SetString(value.ToString());
-        }
-
-        public override void SetFloat(float value)
-        {
-            SetString(value.ToString());
+            return this;
         }
 
         public override string ToString()
@@ -74,6 +78,11 @@
         public override JSON Clone()
         {
             return new JSONString(_value);
+        }
+
+        public override bool Equals(JSON other)
+        {
+            return base.Equals(other) || (other.GetJSONType() == JSONType.Value && other.AsValue().GetValueType() == JSONValueType.String && (other.AsValue() as JSONString)._value.Equals(_value));
         }
     }
 }

@@ -21,5 +21,10 @@
         {
             return new JSONEmpty();
         }
+
+        public override bool Equals(JSON other)
+        {
+            return base.Equals(other) || (other.IsEmpty() && IsEmpty());
+        }
     }
 }

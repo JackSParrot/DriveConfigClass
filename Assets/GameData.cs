@@ -17,7 +17,7 @@ public struct Rarity
 }
 
 [System.Serializable]
-public struct Skill
+public class Skill
 {
 	public int Id;
 	public string Effect;
@@ -25,7 +25,7 @@ public struct Skill
 }
 
 [System.Serializable]
-public struct Card
+public class Card
 {
 	public int Id;
 	public string Title;

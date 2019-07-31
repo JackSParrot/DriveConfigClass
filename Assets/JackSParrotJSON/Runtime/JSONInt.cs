@@ -5,37 +5,43 @@
     {
         int _value;
 
-        public JSONInt(int value) : base(JSONValueType.Int)
+        public static implicit operator int(JSONInt data) => data.ToInt();
+        public static implicit operator JSONInt(int data) => new JSONInt(data);
+
+        public JSONInt(int value = 0) : base(JSONValueType.Int)
         {
-            _value = value;
+            SetInt(value);
         }
 
-        public override void SetString(string value)
+        public override JSONValue SetInt(int value)
         {
-            if(!int.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out _value))
+            _value = value;
+            return this;
+        }
+
+        public override JSONValue SetLong(long value)
+        {
+            return SetInt((int)value);
+        }
+
+        public override JSONValue SetFloat(float value)
+        {
+            return SetInt((int)value);
+        }
+
+        public override JSONValue SetBool(bool value)
+        {
+            return SetInt(value ? 1 : 0);
+        }
+
+        public override JSONValue SetString(string value)
+        {
+            int toParse;
+            if (!int.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out toParse))
             {
-                _value = 0;
+                toParse = 0;
             }
-        }
-
-        public override void SetInt(int value)
-        {
-            _value = value;
-        }
-
-        public override void SetBool(bool value)
-        {
-            SetInt(value ? 1 : 0);
-        }
-
-        public override void SetLong(long value)
-        {
-            SetInt((int)value);
-        }
-
-        public override void SetFloat(float value)
-        {
-            SetInt((int)value);
+            return SetInt(toParse);
         }
 
         public override string ToString()
@@ -71,6 +77,11 @@
         public override JSON Clone()
         {
             return new JSONInt(_value);
+        }
+
+        public override bool Equals(JSON other)
+        {
+            return base.Equals(other) || (other.GetJSONType() == JSONType.Value && other.AsValue().GetValueType() == JSONValueType.Int && (other.AsValue() as JSONInt)._value == _value);
         }
     }
 }

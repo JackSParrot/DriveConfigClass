@@ -1,19 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace JackSParrot.JSON
 {
     [System.Serializable]
-    public class JSONObject : JSON
+    public class JSONObject : JSON, IEnumerable<KeyValuePair<string, JSON>>
     {
         Dictionary<string, JSON> _values;
-
-        public Dictionary<string, JSON>.KeyCollection Keys
-        {
-            get
-            {
-                return _values.Keys;
-            }
-        }
 
         public Dictionary<string, JSON>.ValueCollection Values
         {
@@ -23,22 +16,119 @@ namespace JackSParrot.JSON
             }
         }
 
-        public int Count
-        {
-            get
-            {
-                return _values.Count;
-            }
-        }
-
         public JSONObject() : base(JSONType.Object)
         {
             _values = new Dictionary<string, JSON>();
         }
 
-        public Dictionary<string, JSON>.Enumerator GetEnumerator()
+        public JSONObject(Dictionary<string, JSON> other) : base(JSONType.Object)
         {
-            return _values.GetEnumerator();
+            _values = new Dictionary<string, JSON>(other);
+        }
+
+        public JSONObject(Dictionary<string, int> other) : base(JSONType.Object)
+        {
+            _values = new Dictionary<string, JSON>();
+            foreach (var item in other)
+            {
+                Add(item.Key, item.Value);
+            }
+        }
+
+        public JSONObject(Dictionary<string, long> other) : base(JSONType.Object)
+        {
+            _values = new Dictionary<string, JSON>();
+            foreach (var item in other)
+            {
+                Add(item.Key, item.Value);
+            }
+        }
+
+        public JSONObject(Dictionary<string, float> other) : base(JSONType.Object)
+        {
+            _values = new Dictionary<string, JSON>();
+            foreach (var item in other)
+            {
+                Add(item.Key, item.Value);
+            }
+        }
+
+        public JSONObject(Dictionary<string, bool> other) : base(JSONType.Object)
+        {
+            _values = new Dictionary<string, JSON>();
+            foreach (var item in other)
+            {
+                Add(item.Key, item.Value);
+            }
+        }
+
+        public JSONObject(Dictionary<string, string> other) : base(JSONType.Object)
+        {
+            _values = new Dictionary<string, JSON>();
+            foreach (var item in other)
+            {
+                Add(item.Key, item.Value);
+            }
+        }
+
+        public Dictionary<string, int> ToIntDictionary()
+        {
+            var retVal = new Dictionary<string, int>();
+            foreach(var kvp in _values)
+            {
+                retVal.Add(kvp.Key, kvp.Value.AsValue().ToInt());
+            }
+            return retVal;
+        }
+
+        public Dictionary<string, long> ToLongDictionary()
+        {
+            var retVal = new Dictionary<string, long>();
+            foreach (var kvp in _values)
+            {
+                retVal.Add(kvp.Key, kvp.Value.AsValue().ToLong());
+            }
+            return retVal;
+        }
+
+        public Dictionary<string, float> ToFloatDictionary()
+        {
+            var retVal = new Dictionary<string, float>();
+            foreach (var kvp in _values)
+            {
+                retVal.Add(kvp.Key, kvp.Value.AsValue().ToFloat());
+            }
+            return retVal;
+        }
+
+        public Dictionary<string, bool> ToBoolDictionary()
+        {
+            var retVal = new Dictionary<string, bool>();
+            foreach (var kvp in _values)
+            {
+                retVal.Add(kvp.Key, kvp.Value.AsValue().ToBool());
+            }
+            return retVal;
+        }
+
+        public Dictionary<string, string> ToStringDictionary()
+        {
+            var retVal = new Dictionary<string, string>();
+            foreach (var kvp in _values)
+            {
+                retVal.Add(kvp.Key, kvp.Value.AsValue().ToString());
+            }
+            return retVal;
+        }
+
+        public Dictionary<string, JSON>.KeyCollection GetKeys()
+        {
+            return _values.Keys;
+        }
+
+        public int GetCount()
+        {
+            return _values.Count;
         }
 
         public void Add(string key, JSON value)
@@ -190,6 +280,10 @@ namespace JackSParrot.JSON
             }
             return retVal;
         }
+
+        public IEnumerator<KeyValuePair<string, JSON>> GetEnumerator() => _values.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => _values.GetEnumerator();
     }
 }
 

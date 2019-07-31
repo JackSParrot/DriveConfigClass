@@ -5,37 +5,43 @@
     {
         float _value;
 
-        public JSONFloat(float value) : base(JSONValueType.Float)
+        public static implicit operator float(JSONFloat data) => data.ToFloat();
+        public static implicit operator JSONFloat(float data) => new JSONFloat(data);
+
+        public JSONFloat(float value = 0f) : base(JSONValueType.Float)
         {
-            _value = value;
+            SetFloat(value);
         }
 
-        public override void SetString(string value)
+        public override JSONValue SetInt(int value)
         {
-            if(!float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out _value))
+            return SetFloat((float)value);
+        }
+
+        public override JSONValue SetLong(long value)
+        {
+            return SetFloat((float)value);
+        }
+
+        public override JSONValue SetFloat(float value)
+        {
+            _value = value;
+            return this;
+        }
+
+        public override JSONValue SetBool(bool value)
+        {
+            return SetFloat(value ? 1.0f : 0.0f);
+        }
+
+        public override JSONValue SetString(string value)
+        {
+            float outVal;
+            if (!float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out outVal))
             {
-                _value = 0;
+                outVal = 0f;
             }
-        }
-
-        public override void SetInt(int value)
-        {
-            SetLong((long)value);
-        }
-
-        public override void SetBool(bool value)
-        {
-            SetFloat(value ? 1.0f : 0.0f);
-        }
-
-        public override void SetLong(long value)
-        {
-            SetFloat((float)value);
-        }
-
-        public override void SetFloat(float value)
-        {
-            _value = value;
+            return SetFloat(outVal);
         }
 
         public override string ToString()
@@ -71,6 +77,11 @@
         public override JSON Clone()
         {
             return new JSONFloat(_value);
+        }
+
+        public override bool Equals(JSON other)
+        {
+            return base.Equals(other) || (other.GetJSONType() == JSONType.Value && other.AsValue().GetValueType() == JSONValueType.Float && (other.AsValue() as JSONFloat)._value == _value);
         }
     }
 }

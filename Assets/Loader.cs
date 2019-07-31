@@ -65,47 +65,21 @@ public class Loader : MonoBehaviour
         foreach (var entry in raritiesData)
         {
             var obj = entry.AsObject();
-            GameDataHolder.Rarities.Add(new Rarity
-            {
-                Id = obj["Id"],
-                Name = obj["Name"],
-                Color = obj["Color"]
-            });
+            GameDataHolder.Rarities.Add(JSON.FromJSON<Rarity>(obj));
         }
         var skillsData = data["Skills"].AsArray();
         GameDataHolder.Skills.Clear();
         foreach (var entry in skillsData)
         {
             var obj = entry.AsObject();
-            GameDataHolder.Skills.Add(new Skill
-            {
-                Id = obj["Id"],
-                Effect = obj["Effect"],
-                Description = obj["Description"]
-            });
+            GameDataHolder.Skills.Add(JSON.FromJSON<Skill>(obj));
         }
         var cardsData = data["Cards"].AsArray();
         GameDataHolder.Cards.Clear();
         foreach (var entry in cardsData)
         {
             var obj = entry.AsObject();
-            var card = new Card
-            {
-                Id = obj["Id"],
-                Title = obj["Title"],
-                Text = obj["Text"],
-                Cost = obj["Cost"],
-                Attack = obj["Attack"],
-                Defence = obj["Defence"],
-                Rarity = obj["Rarity"],
-                Skills = new List<int>()
-            };
-            var skillsArr = obj["Skills"].AsArray();
-            foreach(var skill in skillsArr)
-            {
-                card.Skills.Add(skill);
-            }
-            GameDataHolder.Cards.Add(card);
+            GameDataHolder.Cards.Add(JSON.FromJSON<Card>(obj));
         }
     }
 }
