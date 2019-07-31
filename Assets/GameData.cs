@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public struct GlobalDataEntry
 {
-	public string Key;
+	public string Property;
 	public int Value;
 }
 
@@ -17,7 +17,7 @@ public struct Rarity
 }
 
 [System.Serializable]
-public class Skill
+public struct Skill
 {
 	public int Id;
 	public string Effect;
@@ -25,24 +25,30 @@ public class Skill
 }
 
 [System.Serializable]
-public class Card
+public struct Card
 {
-	public int Id;
-	public string Title;
-	public string Text;
-	public int Cost;
-	public int Attack;
-	public int Defence;
-	public int Rarity;
-	public List<int> Skills;
+    public int Id;
+    public string Title;
+    public string Text;
+    public int Cost;
+    public int Attack;
+    public int Defence;
+    public int Rarity;
+    public List<int> Skills;
+}
+
+[System.Serializable]
+public struct GameConfig
+{
+    public List<GlobalDataEntry> Global;
+    public List<Rarity> Rarities;
+    public List<Skill> Skills;
+    public List<Card> Cards;
 }
 
 [CreateAssetMenu(fileName = "GameDataHolder", menuName = "Game/GameDataHolder", order = 1)]
 public class GameData : ScriptableObject
 {
     public string Version = "0";
-	public List<GlobalDataEntry> GlobalData = new List<GlobalDataEntry>();
-	public List<Rarity> Rarities = new List<Rarity>();
-	public List<Skill> Skills = new List<Skill>();
-	public List<Card> Cards = new List<Card>();
+    public GameConfig Config;
 }

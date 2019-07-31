@@ -12,8 +12,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea02bc4a0289475fb1920a8fbd7205f, type: 3}
   m_Name: GameDataHolder
   m_EditorClassIdentifier: 
-  Version: 0
-  GlobalData: []
-  Rarities: []
-  Skills: []
-  Cards: []
+  Version: 3
+  Config:
+    Global:
+    - Property: HandSize
+      Value: 7
+    - Property: StartingHealth
+      Value: 30
+    - Property: StartingShield
+      Value: 0
+    - Property: TurnTime
+      Value: 15
+    - Property: DeckSize
+      Value: 20
+    - Property: MaxRepeatedCards
+      Value: 4
+    Rarities:
+    - Id: 0
+      Name: Common
+      Color: White
+    - Id: 1
+      Name: Uncommon
+      Color: Green
+    - Id: 2
+      Name: Rare
+      Color: Blue
+    - Id: 3
+      Name: Epic
+      Color: Purple
+    - Id: 4
+      Name: Legendary
+      Color: Orange
+    Skills:
+    - Id: 0
+      Effect: Haste
+      Description: Can attack when summoned
+    - Id: 0
+      Effect: Taunt
+      Description: Has to be killed before attacking allies
+    - Id: 0
+      Effect: Fly
+      Description: Can only be blocked by cards with Fly
+    - Id: 0
+      Effect: Reach
+      Description: Can block Flying cards
+    - Id: 0
+      Effect: Rush
+      Description: Can attack cards when summoned
+    - Id: 0
+      Effect: Explode
+      Description: When killed does 5 damage to all cards
+    Cards:
+    - Id: 0
+      Title: Goblin
+      Text: Runs very fast
+      Cost: 1
+      Attack: 1
+      Defence: 1
+      Rarity: 0
+      Skills: 00000000
+    - Id: 1
+      Title: Raider
+      Text: Fast but weak
+      Cost: 2
+      Attack: 3
+      Defence: 1
+      Rarity: 0
+      Skills: 04000000
+    - Id: 2
+      Title: Spider
+      Text: Can block flying units
+      Cost: 2
+      Attack: 1
+      Defence: 3
+      Rarity: 1
+      Skills: 03000000
+    - Id: 3
+      Title: Bear
+      Text: It's hard go get passed him
+      Cost: 4
+      Attack: 2
+      Defence: 5
+      Rarity: 2
+      Skills: 01000000
+    - Id: 4
+      Title: Eagle
+      Text: A fast flying unit
+      Cost: 3
+      Attack: 2
+      Defence: 2
+      Rarity: 3
+      Skills: 0200000004000000
+    - Id: 5
+      Title: Angel
+      Text: Deadly flying soldier
+      Cost: 6
+      Attack: 4
+      Defence: 4
+      Rarity: 4
+      Skills: 00000000010000000200000004000000
+    - Id: 6
+      Title: Beast
+      Text: Standard boar
+      Cost: 9
+      Attack: 7
+      Defence: 8
+      Rarity: 0
+      Skills: 
+    - Id: 7
+      Title: Whale
+      Text: Whale in the shore, run away from it
+      Cost: 5
+      Attack: 2
+      Defence: 6
+      Rarity: 2
+      Skills: 05000000
